@@ -1,7 +1,11 @@
-const list = ["https://www.twitch.tv/hello1", "https://www.twitch.tv/hello2", "https://www.twitch.tv/hello3"];
+var list;
 
 // When the start button is clicked
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+	if (request.type == "list") {
+		list = request.csvlist["data"].flat();
+		console.log(list);
+	}
 	if (request.start === true) {
 		// Loop through every link
 		(async () => {
