@@ -1,18 +1,25 @@
+// Click follow button
 function clickFollow() {
 	document.querySelector("button[data-a-target='follow-button']").click();
+	console.log("Follow button clicked.");
 }
 
-function waitForElement(timeout) {
+/**
+ * Check for unfollow or follow button
+ * @param {Integer} timeout - Milliseconds to wait before timing out, or 0 for no timeout
+ */
+function checkButtons(timeout) {
 	return new Promise((resolve, reject) => {
 		var timer = false;
 		const observer = new MutationObserver(() => {
-			if (document.querySelector("button[data-a-target='follow-button']").length) {
+			if (document.querySelectorAll("button[data-a-target='unfollow-button']").length) {
+				observer.disconnect();
+				console.log("Unfollow button found.");
 				if (timer !== false) clearTimeout(timer);
 				return resolve();
 			}
-			if (document.querySelector("button[data-a-target='unfollow-button']").length) {
-				observer.disconnect();
-				if (timer !== false) clearTimeout(timer);
+			if (document.querySelectorAll("button[data-a-target='follow-button']").length) {
+				console.log("Follow button found");
 				setTimeout(clickFollow, 1000);
 			}
 		});
@@ -28,10 +35,10 @@ function waitForElement(timeout) {
 	});
 }
 
-waitForElement(5000)
+checkButtons(5000)
 	.then(function () {
-		console.log("Unfollow button found.");
+		console.log("Button found.");
 	})
 	.catch(() => {
-		console.log("Timeout");
+		console.log("No button loaded in 5 seconds");
 	});
