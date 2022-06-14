@@ -6,7 +6,16 @@
 </head>
 
 <body>
+	<h1>Twitch Autofollower</h1>
+	<form id="csvForm">
+		<label for="avatar">Select a csv list of Twitch links to follow:</label>
+		<input type="file" id="csvFile" accept=".csv">
+		<input type="submit" id="load" value="Load">
+	</form>
+
 	<button id="start">Start</button>
+	
+	<script src="papaparse.min.js"></script>
 	<script src="popup.js"></script>
 </body>
 
