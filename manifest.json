@@ -1,0 +1,20 @@
+{
+  "name": "Twitch Follower",
+  "version": "0.1",
+  "manifest_version": 3,
+  "description": "Automatically follows Twitch users.",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.twitch.tv/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
