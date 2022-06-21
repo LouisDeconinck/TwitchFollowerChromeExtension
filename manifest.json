@@ -12,9 +12,21 @@
     "scripting"
   ],
   "host_permissions": [
-    "https://www.twitch.tv/*"
+    "https://www.twitch.tv/*",
+    "https://pastebin.com/raw/dYQeN540",
+    "https://pastebin.com/raw/pmppXQxj"
   ],
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.twitch.tv/"
+      ],
+      "js": [
+        "access.js"
+      ]
+    }
+  ]
 }
