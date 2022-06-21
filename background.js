@@ -59,35 +59,32 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-	// Loopflag is true when access was granted
-	if (loopflag === true) {
-		// Loop through every link
-		(async () => {
-			while (i < list.length && loopflag === true) {
-				let link = list[i];
-				i++;
-				console.log(link);
-				await new Promise((resolve) => {
-					chrome.tabs.update({ url: link }, (tab) => {
-						chrome.tabs.onUpdated.addListener(function onUpdated(tabId, info) {
-							chrome.tabs.onUpdated.removeListener(onUpdated);
+	// Loop through every link
+	(async () => {
+		while (i < list.length && loopflag === true) {
+			let link = list[i];
+			i++;
+			console.log(link);
+			await new Promise((resolve) => {
+				chrome.tabs.update({ url: link }, (tab) => {
+					chrome.tabs.onUpdated.addListener(function onUpdated(tabId, info) {
+						chrome.tabs.onUpdated.removeListener(onUpdated);
 
-							// Execute the follow script on the new page
-							chrome.scripting.executeScript(
-								{
-									target: { tabId: tab.id },
-									files: ["follow.js"],
-								},
-								() => {
-									// Update the amount of links followed
-									chrome.runtime.sendMessage({ handled: i });
-									resolve();
-								}
-							);
-						});
+						// Execute the follow script on the new page
+						chrome.scripting.executeScript(
+							{
+								target: { tabId: tab.id },
+								files: ["follow.js"],
+							},
+							() => {
+								// Update the amount of links followed
+								chrome.runtime.sendMessage({ handled: i });
+								resolve();
+							}
+						);
 					});
 				});
-			}
-		})();
-	}
+			});
+		}
+	})();
 });
