@@ -3,19 +3,18 @@
 
 <head>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+	<link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
 	<h1>Twitch Autofollower</h1>
-	<form id="csvForm">
-		<label for="avatar">Select a csv list of Twitch links to follow:</label>
-		<input type="file" id="csvFile" accept=".csv">
-		<input type="submit" id="load" value="Load">
-	</form>
+	<div id="afollowed">
+		Accounts followed: <span id="handled">0</span> / <span id="links">0</span>
+	</div>
 
-	<button id="start">Start</button>
-	
-	<script src="papaparse.min.js"></script>
+	<button id="startstop">START</button>
+	<div id="access"></div>
+
 	<script src="popup.js"></script>
 </body>
 
